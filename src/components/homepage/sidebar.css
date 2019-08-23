@@ -1,0 +1,17 @@
+.User-picture{
+    width: 24vh;
+    height: 24vh;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    margin-top: 8vh;
+    margin-bottom: 5vh;
+    border-radius: 24vh;
+  }
+
+  .username {
+    margin-bottom: 20px;
+  }
+
+  .explore, .history {
+    margin-bottom: 25px;
+  }

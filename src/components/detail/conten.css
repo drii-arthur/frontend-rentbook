@@ -1,0 +1,29 @@
+.genre {
+    background-color:#FBCC38;
+    border-radius:15px;
+    display:inline;
+    padding: 7px 15px;
+    color:#fff;
+}
+
+.title {
+    font-weight:bold;
+    margin-top: 5px;
+}
+
+.conten {
+    position:relative
+}
+
+.date{
+    margin-bottom: 20px
+}
+
+.status {
+    color:greenyellow;
+    display: inline;
+    padding:10px;
+    position:absolute;
+    right: 10px;
+    top:25px
+}

@@ -1,0 +1,57 @@
+.jumbotron {
+    width:100%;
+    height:300px;
+    position:relative;
+    background-repeat: no-repeat;
+    background-size:100%
+}
+
+.litleBook{
+    position:absolute;
+    right:50px;
+    bottom:-100px;
+    width:200px;
+    height:250px;
+    background-color: brown;
+    border-radius: 10px;
+    background-size: 100% 100%;
+    box-shadow: 10px 10px 16px -7px rgba(0,0,0,0.74);
+    background-position: 'center'
+    
+}
+
+.btn-back {
+    width:30px;
+    height:30px;
+    background-color:white;
+    border-radius: 50%;
+    position: absolute;
+    top:20px;
+    left:20px
+}
+
+.btn-edit {
+    position:absolute;
+    top:3%;
+    right:8%;
+    color: #fff;
+    font-weight:bold
+}
+
+.btn-delete {
+    position: absolute;
+    top:5%;
+    right:4%;
+    color:#fff;
+    font-weight:bold;
+}
+
+.close {
+    color:red;
+}
+
+.close:hover {
+    color:red;
+    border: 2px solid red;
+    border-radius:50%;
+}

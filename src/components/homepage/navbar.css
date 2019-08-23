@@ -1,0 +1,11 @@
+
+.dropdownHeader{
+    color: #424242;;
+    background-color: white;
+    border: none;
+    font-weight: bold
+}
+
+.boxDrop {
+    display:inline
+}

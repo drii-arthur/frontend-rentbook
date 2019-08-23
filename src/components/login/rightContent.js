@@ -7,7 +7,7 @@ const RightContent = () => {
         <div className='Title'>
             <h1 className='h1'> books is window <br />
                 to the world
-                            </h1>
+            </h1>
         </div>
     )
 }
