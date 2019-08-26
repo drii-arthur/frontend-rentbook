@@ -2,14 +2,16 @@
   box-shadow:0px 4px 10px rgba(0, 0, 0, 0.25); 
   margin-top:0;
   margin-bottom: 20px;
-  z-index:-1
+  z-index:3
 
 }
 
 .btn-sidebar {
   position:absolute;
   top:20px;
-  left:25px
+  left:25px;
+  background-color:transparent;
+  border:none
 }
 
 .btn-rent {
@@ -20,7 +22,8 @@
   color: #fff;
   position: fixed;
   bottom: 20px;
-  right: 6%
+  right: 6%;
+  cursor: pointer;
 }
 
 .allBooks {
@@ -32,7 +35,7 @@
 }
 
 .listbooks {
-  background-color:#000000;
+  background-color:#1e272e;
   display:inline;
   color:#fff;
   margin-left:20px;
@@ -47,7 +50,7 @@
   position:absolute;
   width: 37px;
   height:37px;
-  background-color:#000000;
+  background-color:#1e272e;
   top:8px;
   right:-19px;
   transform:rotate(45deg)

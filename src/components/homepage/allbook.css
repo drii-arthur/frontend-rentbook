@@ -1,6 +1,4 @@
 .card{
-    /* display:flex;
-    flex-wrap: wrap; */
     align-content: flex-start;
     border-radius:10px;
     box-shadow: 10px 10px 16px -7px rgba(0,0,0,0.54);
@@ -11,4 +9,41 @@
     height:200px;
     border-top-left-radius:10px;
     border-top-right-radius:10px
+}
+.genreCard{
+    background-color: brown;
+    padding:10px;
+    color:#fff;
+    font-weight:bold;
+    display: inline;
+    position:relative;   
+}
+
+.genreCard::before{
+    content: '';
+    position:absolute;
+    height:100%;
+    width:40px;
+    background-color:brown;
+    top: 0px;
+    left:-30px;
+}
+.genreCard::after{
+    content:'';
+    position: absolute;
+    height:100%;
+    width:20px;
+    top:5px;
+    left:-35px;
+    background-color:brown;
+    z-index:-1;
+    transform:rotate(-3deg)
+}
+.statusCard {
+    padding:10px;
+    display:inline;
+    border:2px solid #1e272e;
+    font-weight:bold;
+    float:right;
+    margin-bottom:0
 }
