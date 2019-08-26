@@ -40,7 +40,7 @@
     transform:rotate(-3deg)
 }
 .statusCard {
-    padding:10px;
+    padding:5px 10px;
     display:inline;
     border:2px solid #1e272e;
     font-weight:bold;
