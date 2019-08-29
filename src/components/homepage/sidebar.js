@@ -1,5 +1,7 @@
 import React from 'react';
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { addBook } from '../../Redux/Actions/book'
+import swal from 'sweetalert'
 import {
     Button,
     Modal,
@@ -13,8 +15,9 @@ import {
     Input
 } from 'reactstrap';
 import './sidebar.css'
+import { getGenre } from '../../Redux/Actions/genre';
 
-export default class SidebarUsers extends React.Component {
+class SidebarUsers extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,13 +38,8 @@ export default class SidebarUsers extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        // this.handleClose = this.handleClose.bind(this);
+        this.handleSubmit = this.addBook.bind(this);
     }
-    // handleClose = () => {
-    //     this.setState({ showModal: false })
-    //     window.location.reload()
-    // }
 
     toggle() {
         this.setState(prevState => ({
@@ -62,31 +60,34 @@ export default class SidebarUsers extends React.Component {
         console.log(this.state.formData)
     }
 
-    handleSubmit(event) {
-
-        axios.post('http://localhost:8081/book/', this.state.formData, {
-            headers: {
-                Authorization: document.cookie.split("=")[1],
-            }
-        })
-            .then(res => {
-                this.setState({
-                    showModal: true,
-                    modalTitle: "Success",
-                    modalMessage: res.data.message,
+    addBook = async (event) => {
+        await this.props.dispatch(addBook(this.state.formData))
+        console.log(this.props.books)
+            .then(() => {
+                swal({
+                    title: 'Add Book',
+                    text: 'Add book success',
+                    icon: 'success',
+                    button: 'OK'
                 })
             })
-            .catch(err => console.log(err))
-        event.preventDefault();
+        event.preventDefault()
     }
 
-    componentDidMount = () => {
-        axios.get('http://localhost:8081/genre/cat')
-            .then(res => {
-                this.setState({ genreList: res.data });
-            })
-            .catch(err => console.log('error =', err));
+
+
+    componentDidMount = async () => {
+        await this.props.dispatch(getGenre())
+        this.setState({
+            genreList: this.props.genre.genreList
+        })
     };
+
+    handleLogout = () => {
+        localStorage.removeItem('token')
+        // this.props.history.push('/Login')
+        window.location.reload()
+    }
 
     render() {
         const { genreList } = this.state
@@ -102,7 +103,7 @@ export default class SidebarUsers extends React.Component {
                         <ModalHeader toggle={this.toggle} style={{ fontSize: '22px', borderBottom: 'none', padding: '25px' }}>Add Data</ModalHeader>
                         <ModalBody style={{ padding: '25px' }}>
 
-                            <Form onSubmit={this.handleSubmit}>
+                            <Form onSubmit={this.addBook}>
 
                                 <FormGroup row>
                                     <Label for="exampleEmail" sm={2} style={{ fontWeight: '600', fontSize: '18px' }}>Img url</Label>
@@ -159,7 +160,16 @@ export default class SidebarUsers extends React.Component {
 
                     </Modal>
                 </h6>
-
+                <h6 className="logout" onClick={this.handleLogout} style={{ cursor: 'pointer' }}>Logout</h6>
             </div>)
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        books: state.books,
+        genre: state.genre
+    }
+}
+
+export default connect(mapStateToProps)(SidebarUsers)

@@ -14,10 +14,10 @@ class AllBooks extends React.Component {
     }
 
     componentDidMount = async () => {
-        await this.props.dispatch(getBook())
+        await this.props.dispatch(getBook(this.props.match.params.genre, this.props.match.params.year))
         console.log(this.props.books)
         this.setState({
-            books: this.props.books
+            books: this.props.books,
         })
 
     }
@@ -32,7 +32,7 @@ class AllBooks extends React.Component {
             <Fragment>
                 {book ? book.map((data, index) => {
                     return (
-                        <div key={index} className="card" style={{ width: "17rem" }}>
+                        <div key={index} className="card" style={{ width: "17rem" }} onClick={() => { this.props.getDetail(data.id_books) }}>
                             <img src={data.image} className="card-img-top" alt="..." />
                             <div className="card-body">
                                 <p className="genreCard">{data.genre}</p>
@@ -52,6 +52,7 @@ class AllBooks extends React.Component {
 }
 
 // onClick={() => { this.props.getDetail(id_books) }}
+
 
 const mapStateToProps = state => {
     return {

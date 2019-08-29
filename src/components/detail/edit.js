@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { editBook } from '../../Redux/Actions/book'
 import {
     Button,
     Modal,
@@ -13,15 +14,15 @@ import {
     Input
 } from 'reactstrap';
 import './edit.css'
+import { getGenre } from '../../Redux/Actions/genre';
 
 
-export default class EditData extends React.Component {
+class EditData extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
             genreList: [],
-            id_books: props.id_books,
+            // id_books: props.id_books,
             formData: {
                 image: props.image,
                 title: props.title,
@@ -30,10 +31,10 @@ export default class EditData extends React.Component {
                 date_released: props.date_released,
             },
         };
-console.log(this.state)
+        console.log(this.state)
         this.toggle = this.toggle.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.editBook.bind(this);
     }
 
     toggle() {
@@ -53,29 +54,21 @@ console.log(this.state)
         console.log(this.state.formData)
     }
 
-    handleSubmit(event) {
-        axios.patch(`http://localhost:8081/book/${this.state.id_books}`, this.state.formData, {
-            headers: {
-                Authorization: document.cookie.split("=")[1],
-            }
-        })
-            .then(res => {
-                this.setState({
-                    showModal: true,
-                    modalTitle: "Success",
-                    modalMessage: res.data.message,
-                })
-            })
-            .catch(err => console.log(err))
-        event.preventDefault();
-    }
+    editBook = async (event) => {
+        await this.props.dispatch(editBook(this.props.match.params.id, this.state.formData))
+        event.preventDefault()
 
-    componentDidMount = () => {
-        axios.get('http://localhost:8081/genre/cat')
-            .then(res => {
-                this.setState({ genreList: res.data });
-            })
-            .catch(err => console.log('error =', err));
+    }
+    componentDidMount = async () => {
+        await this.props.dispatch(getGenre())
+        this.setState({
+            genreList: this.props.genre.genreList
+        })
+        //     axios.get('http://localhost:8081/genre/cat')
+        //         .then(res => {
+        //             this.setState({ genreList: res.data });
+        //         })
+        //         .catch(err => console.log('error =', err));
     };
     render() {
         const { genreList } = this.state
@@ -86,7 +79,7 @@ console.log(this.state)
                     <ModalHeader toggle={this.toggle} style={{ fontSize: '22px', borderBottom: 'none', padding: '25px' }}>Edit Data</ModalHeader>
                     <ModalBody style={{ padding: '25px' }}>
 
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.editBook}>
 
 
                             <FormGroup row>
@@ -145,3 +138,12 @@ console.log(this.state)
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        books: state.books,
+        genre: state.genre
+    }
+}
+
+export default connect(mapStateToProps)(EditData)

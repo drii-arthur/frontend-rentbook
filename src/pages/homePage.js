@@ -21,35 +21,12 @@ export default class HomePage extends React.Component {
         this.getDetail = this.getDetail.bind(this)
     }
 
-
-    // console.log(this.props)
-
-    // let query = ''
-    // if (this.props.match.params.genre !== undefined) {
-    //     query = `http://localhost:8081/book/genre/${this.props.match.params.genre}`
-    // }
-    // else if (this.props.match.params.year !== undefined) {
-    //     query = `http://localhost:8081/book/year/${this.props.match.params.year}`
-    // }
-    // else {
-    //     query = `http://localhost:8081/book`
-    // }
-
-    // axios.get(query)
-    //     .then((data) => {
-    //         console.log(data)
-    //         this.setState({
-    //             books: data.data,
-    //         })
-    //     })
-
-
     onSetSidebarOpen = (open) => {
         this.setState({ sidebarOpen: open });
     }
 
     getDetail(id) {
-        window.location.href = `http://localhost:3000/book/detail/${id}`
+        this.props.history.push(`/book/detail/${id}`)
     }
 
 
@@ -102,7 +79,7 @@ export default class HomePage extends React.Component {
                     <h3 className="listbooks pl-3">List Books</h3>
                     <hr />
                     <div className="row px-3 mb-3">
-                        <div className="col-md-12 mt-4 allBooks" style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between" }}><AllBooks /></div>
+                        <div className="col-md-12 mt-4 allBooks" style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between" }}><AllBooks match={this.props.match} getDetail={this.getDetail} /></div>
                     </div>
                 </div>
 

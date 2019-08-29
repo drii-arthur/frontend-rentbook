@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 
 // import Link from 'react-router-dom'
 import FormLogin from '../components/login/login'
@@ -15,6 +16,18 @@ let bgStyle = {
 }
 
 class Signin extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            loggedIn: this.isLoggedIn()
+        }
+        if (this.isLoggedIn())
+            props.history.push('/')
+    }
+
+    isLoggedIn() {
+        return window.localStorage.getItem("token") !== null
+    }
     render() {
         return (
             <div className='container-fluid'>
@@ -22,11 +35,20 @@ class Signin extends React.Component {
                     <div className='col-md-8' style={bgStyle}>
                         <RightContent />
                     </div>
-                    <div className='col-md-4 px-5 pb-4'>
-                        <IconHeader />
-                        <FormLogin />
-                        <Footer />
-                    </div>
+                    <Route
+                        path={'/login'}
+                        render={() => {
+                            return (
+                                this.state.loggedIn ? this.props.history.push('/') :
+                                    <div className='col-md-4 px-5 pb-4'>
+                                        <IconHeader />
+                                        <FormLogin />
+                                        <Footer />
+                                    </div>
+                            )
+                        }}>
+
+                    </Route>
                 </div>
             </div >
         )

@@ -56,3 +56,9 @@
   transform:rotate(45deg)
 
 }
+
+.loading {
+  transform:translateY(50%);
+  text-align: center;
+  margin-top:50px
+}

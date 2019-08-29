@@ -1,24 +1,25 @@
 import React from 'react'
-import Axios from 'axios';
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import swal from 'sweetalert'
+import { Col, Button, Form, FormGroup, Input, } from 'reactstrap';
 import '../login/login.css'
+import { register } from '../../Redux/Actions/users';
 
 
-export default class FormRegister extends React.Component {
+class FormRegister extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      style: props.style,
       formData: {
         username: '',
         email: '',
         password: '',
       }
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
@@ -32,13 +33,23 @@ export default class FormRegister extends React.Component {
     })
   }
 
-  handleSubmit(event) {
-    Axios.post('http://localhost:8081/users/register', this.state.formData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-    event.preventDefault();
+
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    await this.props.dispatch(register(this.state.formData))
+      .then(() => {
+        swal({
+          title: 'Register User',
+          text: 'Register Success',
+          icon: 'success',
+          button: 'login'
+        }).then(() => {
+          window.location.href = '/Login'
+        })
+      })
   }
   render() {
+
     return (
       <div className='formLogin'>
         <h1 className='loginTitle'>Register</h1>
@@ -62,7 +73,7 @@ export default class FormRegister extends React.Component {
 
           <FormGroup check row>
             <Col sm={{ size: 10 }} style={{ padding: '0' }}>
-              <Button style={{ marginRight: '15px', backgroundColor: '#000000', width: '110px' }}>Signup</Button>
+              <Button style={{ marginRight: '15px', backgroundColor: '#000000', width: '110px' }} type="submit">Signup</Button>
               <Link to="/login">
                 <Button style={{ width: '110px', backgroundColor: '#FFFFFF', color: '#D0CCCC', border: '1px solid #D0CCCC' }}>Login</Button> </Link>
             </Col>
@@ -73,3 +84,11 @@ export default class FormRegister extends React.Component {
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  };
+};
+
+export default connect(mapStateToProps)(FormRegister);
