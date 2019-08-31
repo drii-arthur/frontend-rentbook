@@ -16,12 +16,12 @@ function App() {
       <Router>
         <Provider store={store}>
           <Route exact={true} path='/'
-            render={() => {
-              return window.localStorage.getItem('token') !== null || window.localStorage.getItem('token') !== undefined ?
-                <Redirect to={'/book'} /> :
-                <Redirect to={'/Login'} />
-            }} />
-
+          // render={() => {
+          //   return window.localStorage.getItem('token') !== null || window.localStorage.getItem('token') !== undefined ?
+          //     <Redirect to={'/book'} /> :
+          //     <Redirect to={'/Login'} />
+          // }} 
+          />
           <Route exact={true} path='/book' component={HomePage}></Route>
           <Route path='/Login' component={Signin}></Route >
           <Route path='/register' component={SignUp}></Route>
