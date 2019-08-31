@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { addBook } from '../../Redux/Actions/book'
 import swal from 'sweetalert'
+import { Link } from "react-router-dom"
 import {
     Button,
     Modal,
@@ -157,7 +158,7 @@ class SidebarUsers extends React.Component {
 
                     </Modal>
                 </h6>
-               <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>
+                <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>
             </div>)
     }
 }
