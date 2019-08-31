@@ -83,7 +83,7 @@ class SidebarUsers extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem('token')
-        window.location.href = '/Login'
+        // window.location.href = '/Login'
     }
 
     render() {
@@ -157,7 +157,7 @@ class SidebarUsers extends React.Component {
 
                     </Modal>
                 </h6>
-                <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6>
+               <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>
             </div>)
     }
 }
