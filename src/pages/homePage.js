@@ -7,7 +7,6 @@ import Slider from '../components/homepage/carousel'
 import Search from '../components/homepage/search'
 import RightIcon from '../components/homepage/logo'
 import AllBooks from '../components/homepage/allbook'
-import Page from '../components/homepage/pagination'
 import Footer from '../components/homepage/footer'
 import '../App.css'
 import sidebarIcon from '../Assets/Img/list.png'
@@ -88,15 +87,7 @@ export default class HomePage extends React.Component {
                         /></div>
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-md-4'></div>
-                        <div className='col-md-4 text-center m-auto'>
-                            <Page />
-                        </div>
-                        <div className='col-md-4 '></div>
-                    </div>
-                </div>
+
                 <Footer />
 
             </Fragment>

@@ -13,6 +13,11 @@ export const login = (data) => {
     return {
         type: 'LOGIN',
         payload: axios.post(`${url}/login`, data)
+        // .then(res => {
+        //     const halaman = localStorage.setItem('halaman', 1);
+        //     console.log(halaman);
+
+        // })
     }
 }
 

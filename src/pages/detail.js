@@ -172,6 +172,7 @@ class Detail extends React.Component {
                                 </div>
                             </div>
                             <div className="col-md-3 text-right" style={{ lineHeight: '30' }}>
+                                
                                 <button className="btn-rent" disabled={book.status !== 1 && this.state.user.id !== this.state.borrowedBy} onClick={this.handleBorrow}>{this.state.user.id == this.state.borrowedBy ? 'Return' : 'Borrow'}</button>
                             </div>
                         </div>

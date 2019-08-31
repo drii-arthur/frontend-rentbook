@@ -9,6 +9,7 @@ const Search = (props) => {
                 <input className="inputSearch" name="search" type='text' placeholder="Search Books . . ." onKeyPress={(val) => {
                     if (val.key === 'Enter') {
                         window.location.href = `/book?search=${val.target.value}`
+                        window.localStorage.setItem('halaman', 1)
                         val.preventDefault()
                     }
                 }} />

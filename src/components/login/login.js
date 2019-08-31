@@ -55,6 +55,7 @@ class FormLogin extends React.Component {
             return window.location.href = "/Login"
         }
         window.localStorage.setItem('token', this.props.users.token)
+        window.localStorage.setItem('halaman', 1)
         this.setState({
             loggedIn: true
         })

@@ -33,7 +33,6 @@ class SidebarUsers extends React.Component {
             username: props.username || "dummy",
             image: props.image || "https://bacaanmenarikku.files.wordpress.com/2016/03/tumblr_nmxybqyudk1u34m9qo1_1280.jpg",
             explore: 'Explore',
-
             modal: false
         }
 
@@ -78,16 +77,19 @@ class SidebarUsers extends React.Component {
     componentDidMount = async () => {
         await this.props.dispatch(getGenre())
         this.setState({
-            genreList: this.props.genre.genreList
+            genreList: this.props.genre.genreList,
         })
     };
 
     handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.setItem('halaman', 1)
         // window.location.href = '/Login'
     }
 
     render() {
+        const token = localStorage.getItem('token')
+        console.log(localStorage.getItem('token'))
         const { genreList } = this.state
         return (
             <div className="text-center">
@@ -158,7 +160,8 @@ class SidebarUsers extends React.Component {
 
                     </Modal>
                 </h6>
-                <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>
+                {token != null ? (<Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>) : (
+                    <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Login</h6></Link>)}
             </div>)
     }
 }
