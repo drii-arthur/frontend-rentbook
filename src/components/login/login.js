@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import swal from 'sweetalert'
 import { Link, Redirect } from 'react-router-dom'
 import { login } from '../../Redux/Actions/users'
 import { connect } from 'react-redux'
@@ -45,6 +46,14 @@ class FormLogin extends React.Component {
         }
         await this.props.dispatch(login(data))
         console.log('wikwikwik :', data)
+        if (this.props.users.token === undefined) {
+            swal({
+                title: 'Login',
+                text: 'username or password wrong',
+                icon: 'warning',
+            })
+            return window.location.href = "/Login"
+        }
         window.localStorage.setItem('token', this.props.users.token)
         this.setState({
             loggedIn: true

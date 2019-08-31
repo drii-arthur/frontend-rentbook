@@ -8,29 +8,52 @@ class AllBooks extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            books: []
+            books: [],
+            page: 1,
+            postPerPage: 8
         }
-
     }
 
+
+    // handlePage = (page) => {
+    //     this.getBook(page)
+    // }
+
+    // componentDidMount(){
+    //     this.getBook(1)
+    // }
+
+    // getBook = async (page) => {
+    //     let params = new URLSearchParams(window.location.search)
+    //     await this.props.dispatch(getBook(this.props.match.params.genre, this.props.match.params.year, params.get('search'), params.get('page')))
+    //     this.setState({
+    //         books: this.props.books,
+    //         currentPage:page,
+    //         totalPage:this.props.books.bookList.totalPage
+    //     })
+
     componentDidMount = async () => {
-        await this.props.dispatch(getBook(this.props.match.params.genre, this.props.match.params.year))
+        let params = new URLSearchParams(window.location.search)
+        let search = params.get('search')
+        let page = params.get('page')
+        let limit = params.get('limit')
+        await this.props.dispatch(getBook(this.props.match.params.genre, this.props.match.params.year, search, page, limit))
         console.log(this.props.books)
         this.setState({
-            books: this.props.books,
+            books: this.props.books.bookList,
         })
 
     }
 
+
     render() {
-
+        // let indexOfLastPost = this.state.currentPage * this.state.totalPerPage;
+        // let indexOfFirstPost = indexOfLastPost - this.state.totalPerPage;
         const { books } = this.state
-        const book = books.bookList
 
-        console.log(book)
         return (
             <Fragment>
-                {book ? book.map((data, index) => {
+                {books ? books.map((data, index) => {
                     return (
                         <div key={index} className="card" style={{ width: "17rem" }} onClick={() => { this.props.getDetail(data.id_books) }}>
                             <img src={data.image} className="card-img-top" alt="..." />
@@ -51,7 +74,6 @@ class AllBooks extends React.Component {
     }
 }
 
-// onClick={() => { this.props.getDetail(id_books) }}
 
 
 const mapStateToProps = state => {

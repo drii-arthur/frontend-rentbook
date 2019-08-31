@@ -1,5 +1,5 @@
 const initialState = {
-    borrowList: [],
+    borrowList: {},
     isLoading: false,
     isRejected: false,
     isFulFilled: false

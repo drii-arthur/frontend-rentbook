@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import store from './Redux/store'
 import { Provider } from 'react-redux'
 
@@ -15,7 +15,14 @@ function App() {
 
       <Router>
         <Provider store={store}>
-          <Route exact={true} path='/' component={HomePage}></Route>
+          <Route exact={true} path='/'
+            render={() => {
+              return window.localStorage.getItem('token') !== null || window.localStorage.getItem('token') !== undefined ?
+                <Redirect to={'/book'} /> :
+                <Redirect to={'/Login'} />
+            }} />
+
+          <Route exact={true} path='/book' component={HomePage}></Route>
           <Route path='/Login' component={Signin}></Route >
           <Route path='/register' component={SignUp}></Route>
           <Route exact={true} path='/book/detail/:id' component={Detail}></Route>

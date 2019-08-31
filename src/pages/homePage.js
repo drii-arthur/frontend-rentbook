@@ -7,6 +7,8 @@ import Slider from '../components/homepage/carousel'
 import Search from '../components/homepage/search'
 import RightIcon from '../components/homepage/logo'
 import AllBooks from '../components/homepage/allbook'
+import Page from '../components/homepage/pagination'
+import Footer from '../components/homepage/footer'
 import '../App.css'
 import sidebarIcon from '../Assets/Img/list.png'
 
@@ -15,7 +17,7 @@ export default class HomePage extends React.Component {
         super(props);
         this.state = {
             sidebarOpen: false,
-            // Books: [],
+            search: ''
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.getDetail = this.getDetail.bind(this)
@@ -34,7 +36,7 @@ export default class HomePage extends React.Component {
         console.log(this.props)
         return (
             <Fragment>
-                <Sidebar
+                <Sidebar style={{ width: "20%" }}
                     sidebar={
                         <SidebarUsers
                             username="Drii-arthur"
@@ -50,21 +52,22 @@ export default class HomePage extends React.Component {
                 </Sidebar>
                 <div className="row p-3 navbar">
                     <div className="col-md-3">
-                        <p>tai kucing</p>
+
                     </div>
                     <div className="col-md-3">
                         <DropdownCategory />
                         <AllTime />
                     </div>
                     <div className="col-md-4">
-                        <Search />
+                        <Search params={this.props.match.params} />
                     </div>
                     <div className="col-md-2 pr-2">
                         <RightIcon />
                     </div>
                 </div>
                 {/* end of navbar */}
-                <div className="container mb-5">
+
+                <div className="container mb-5" style={this.props.location.pathname !== '/book' ? { display: 'none' } : {}}>
                     <div className="row">
                         <div className='col-md-12'>
                             <div className="slidercontent">
@@ -79,9 +82,22 @@ export default class HomePage extends React.Component {
                     <h3 className="listbooks pl-3">List Books</h3>
                     <hr />
                     <div className="row px-3 mb-3">
-                        <div className="col-md-12 mt-4 allBooks" style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between" }}><AllBooks match={this.props.match} getDetail={this.getDetail} /></div>
+                        <div className="col-md-12 mt-4 allBooks" style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between" }}><AllBooks
+                            match={this.props.match}
+                            getDetail={this.getDetail}
+                        /></div>
                     </div>
                 </div>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-md-4'></div>
+                        <div className='col-md-4 text-center m-auto'>
+                            <Page />
+                        </div>
+                        <div className='col-md-4 '></div>
+                    </div>
+                </div>
+                <Footer />
 
             </Fragment>
 

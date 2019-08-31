@@ -24,7 +24,6 @@ export default class AllTime extends React.Component {
     componentDidMount = () => {
         axios.get('http://localhost:8081/book/year/')
             .then(res => {
-                console.log(res, 'datanya di sini cuy')
                 this.setState({
                     timeList: res.data
                 })

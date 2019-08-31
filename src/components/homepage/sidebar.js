@@ -62,14 +62,12 @@ class SidebarUsers extends React.Component {
 
     addBook = async (event) => {
         await this.props.dispatch(addBook(this.state.formData))
-        console.log(this.props.books)
             .then(() => {
                 swal({
                     title: 'Add Book',
                     text: 'Add book success',
                     icon: 'success',
-                    button: 'OK'
-                })
+                }).then(() => this.props.location.pathname = '/book')
             })
         event.preventDefault()
     }
@@ -85,8 +83,7 @@ class SidebarUsers extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem('token')
-        // this.props.history.push('/Login')
-        window.location.reload()
+        window.location.href = '/Login'
     }
 
     render() {
@@ -160,7 +157,7 @@ class SidebarUsers extends React.Component {
 
                     </Modal>
                 </h6>
-                <h6 className="logout" onClick={this.handleLogout} style={{ cursor: 'pointer' }}>Logout</h6>
+                <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6>
             </div>)
     }
 }

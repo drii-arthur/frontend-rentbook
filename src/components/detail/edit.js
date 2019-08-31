@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import './edit.css'
 import { getGenre } from '../../Redux/Actions/genre';
+import swal from 'sweetalert';
 
 
 class EditData extends React.Component {
@@ -55,8 +56,16 @@ class EditData extends React.Component {
     }
 
     editBook = async (event) => {
-        await this.props.dispatch(editBook(this.props.match.params.id, this.state.formData))
         event.preventDefault()
+        await this.props.dispatch(editBook(this.props.id_books, this.state.formData))
+            .then(() => {
+                swal({
+                    title: 'Edit Book',
+                    text: 'Buku berhasil di ubah',
+                    icon: 'success'
+                }).then(() => window.location.reload())
+            })
+
 
     }
     componentDidMount = async () => {

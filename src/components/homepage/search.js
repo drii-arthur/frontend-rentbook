@@ -2,11 +2,16 @@ import React from 'react'
 import './search.css'
 import icon from '../../Assets/Img/icon.png'
 
-const Search = () => {
+const Search = (props) => {
     return (
         <div>
             <div className="search">
-                <input className="inputSearch" type='text' placeholder="Search Books . . ." />
+                <input className="inputSearch" name="search" type='text' placeholder="Search Books . . ." onKeyPress={(val) => {
+                    if (val.key === 'Enter') {
+                        window.location.href = `/book?search=${val.target.value}`
+                        val.preventDefault()
+                    }
+                }} />
             </div>
             <div className="imgSearch">
                 <img src={icon} className="img" alt="23" />

@@ -36,6 +36,28 @@ const books = (state = initialState, action) => {
                 isRejected: false,
                 isFulFilled: false
             }
+        // get book by id
+        case 'GET_BOOKSBYID_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isRejected: false,
+                isFulFilled: false
+            }
+        case 'GET_BOOKSBYID_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            }
+        case 'GET_BOOKSBYID_FULFILLED':
+            state.bookList.push(action.payload.data[0])
+            return {
+                ...state,
+                isLoading: false,
+                isFulFilled: true,
+
+            }
         case 'ADD_BOOKS_REJECTED':
             return {
                 ...state,

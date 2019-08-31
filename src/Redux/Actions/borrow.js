@@ -12,10 +12,10 @@ export const Borrow = (data) => {
     }
 }
 
-export const Return = (data) => {
+export const Return = (id) => {
     return {
         type: 'RETURN_BOOK',
-        payload: axios.patch(url, data, {
+        payload: axios.patch(`${url}${id}`, null, {
             headers: {
                 authorization: window.localStorage.getItem('token')
             }
