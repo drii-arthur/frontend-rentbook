@@ -30,7 +30,7 @@ export default class Page extends React.Component {
                         this.handleMinus()
                     }
                 }}>
-                    <PaginationLink first href={`/book?page=${this.state.page}`} />
+                    <PaginationLink previous href={`/book?page=${this.state.page}`} />
                 </PaginationItem>
                 <PaginationItem>
                     <PaginationLink >
