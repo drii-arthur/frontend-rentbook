@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { addBook } from '../../Redux/Actions/book'
+import { profile } from "../../Redux/Actions/users";
 import swal from 'sweetalert'
 import { Link } from "react-router-dom"
 import {
@@ -29,6 +30,7 @@ class SidebarUsers extends React.Component {
                 image: '',
                 date_released: '',
                 genre: '',
+                users: {}
             },
             username: props.username || "dummy",
             image: props.image || "https://bacaanmenarikku.files.wordpress.com/2016/03/tumblr_nmxybqyudk1u34m9qo1_1280.jpg",
@@ -79,6 +81,10 @@ class SidebarUsers extends React.Component {
         this.setState({
             genreList: this.props.genre.genreList,
         })
+        await this.props.dispatch(profile())
+        this.setState({
+            users: this.props.users.userList
+        })
     };
 
     handleLogout = () => {
@@ -88,13 +94,17 @@ class SidebarUsers extends React.Component {
     }
 
     render() {
+        const data = this.props.users && this.props.users.userList
+        const tokens = localStorage.getItem('token')
+        console.log('bangsat', data.length);
+
         const token = localStorage.getItem('token')
-        console.log(localStorage.getItem('token'))
         const { genreList } = this.state
         return (
             <div className="text-center">
                 <img src={this.state.image} alt="user" className="User-picture" />
-                <h5 className="username">{this.state.username}</h5>
+                {tokens != null ? <h5 className="username">{data.email}</h5> : <h5 className="username">User</h5>}
+
                 <h6 className="explore">Explore</h6>
                 <h6 className="history">History</h6>
                 <h6 className="addBook">
@@ -169,7 +179,8 @@ class SidebarUsers extends React.Component {
 const mapStateToProps = state => {
     return {
         books: state.books,
-        genre: state.genre
+        genre: state.genre,
+        users: state.users
     }
 }
 

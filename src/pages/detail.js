@@ -13,7 +13,6 @@ import { latestBorrow, Return, Borrow } from '../Redux/Actions/borrow';
 import { profile } from '../Redux/Actions/users';
 import loading from '../Assets/Img/loading.gif'
 import backIcon from '../Assets/Img/back.png'
-import { async } from 'q';
 
 
 class Detail extends React.Component {
@@ -41,7 +40,7 @@ class Detail extends React.Component {
             },
                 async () => {
                     await this.props.dispatch(latestBorrow(this.props.match.params.id))
-                    const borrowedBy = this.props.borrowing.borrowList[0] ? this.props.borrowing.borrowList[0].users_id : 0
+                    const borrowedBy = this.props.borrowing.borrowList && this.props.borrowing.borrowList.users_id
                     this.setState({
                         borrowedBy: borrowedBy
                     }, () => { console.log("minjem buku", borrowedBy, this.props.borrowing.borrowList[0]) })
@@ -84,7 +83,7 @@ class Detail extends React.Component {
                     })
                 })
             this.setState({
-                borrowedBy: data.id_user,
+                borrowedBy: this.state.user.id,
                 book: {
                     ...this.state.book,
                     status: 0
@@ -122,11 +121,11 @@ class Detail extends React.Component {
 
 
     render() {
+        const borrowedBy = this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].users_id
+        console.log("props borrow", this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].users_id);
 
-        // const { detailBooks } = this.state
         const { book } = this.state
-        console.log(this.state)
-        console.log(this.state.user.id, this.state.borrowedBy, "Kene")
+
         if (book == undefined) {
             console.log(this.state)
             return (
@@ -173,7 +172,7 @@ class Detail extends React.Component {
                             </div>
                             <div className="col-md-3 text-right" style={{ lineHeight: '30' }}>
                                 {/* {book.status != 1 ? <button className='btn-rent'>Return</button> : <button className='btn-rent'>Borrow</button>} */}
-                                <button className="btn-rent" disabled={book.status !== 1 && this.state.user.id !== this.state.borrowedBy} onClick={this.handleBorrow}>{this.state.user.id == this.state.borrowedBy ? 'Return' : 'Borrow'}</button>
+                                <button className="btn-rent" disabled={book.status !== 1 && this.state.user.id !== borrowedBy} onClick={this.handleBorrow}>{this.state.user.id == borrowedBy ? 'Return' : 'Borrow'}</button>
                             </div>
                         </div>
                     </div>
