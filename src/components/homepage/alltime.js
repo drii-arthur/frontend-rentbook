@@ -22,7 +22,7 @@ export default class AllTime extends React.Component {
     }
 
     componentDidMount = () => {
-        axios.get('http://localhost:8081/book/year/')
+        axios.get('https://book-library22.herokuapp.com/book/year/')
             .then(res => {
                 this.setState({
                     timeList: res.data
@@ -43,7 +43,7 @@ export default class AllTime extends React.Component {
                 <DropdownMenu>
                     {timeList.length > 0 ?
                         timeList.map((year, index) => {
-                            return <DropdownItem key={index} href={`http://localhost:3000/book/year/${year.year}/`}>{year.year}</DropdownItem>
+                            return <DropdownItem key={index} href={`https://bukuurang.netlify.com/book/year/${year.year}/`}>{year.year}</DropdownItem>
                         }) : <DropdownItem key="0" href="#">Loading ...</DropdownItem>}
 
                 </DropdownMenu>

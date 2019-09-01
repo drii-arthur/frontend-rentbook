@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = `http://localhost:8081/users`
+const url = `https://book-library22.herokuapp.com/users`
 
 export const register = (data) => {
     return {

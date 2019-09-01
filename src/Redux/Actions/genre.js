@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = `http://localhost:8081/genre/cat`
+const url = `https://book-library22.herokuapp.com/genre/cat`
 
 export const getGenre = () => {
     return {

@@ -22,7 +22,7 @@ export default class DropdownCategory extends React.Component {
 
 
     componentDidMount = () => {
-        axios.get('http://localhost:8081/genre/cat')
+        axios.get('https://book-library22.herokuapp.com/genre/cat')
             .then(res => {
                 this.setState({
                     genreList: res.data
@@ -44,7 +44,7 @@ export default class DropdownCategory extends React.Component {
                     <Link to='/'><DropdownItem>All Books</DropdownItem></Link>
                     {genreList.length > 0 ?
                         genreList.map((genre, index) => {
-                            return <DropdownItem key={index} href={`http://localhost:3000/book/genre/${genre.id_genre}/`}>{genre.genre_name}</DropdownItem>
+                            return <DropdownItem key={index} href={`https://bukuurang.netlify.com/book/genre/${genre.id_genre}/`}>{genre.genre_name}</DropdownItem>
                         }) : <DropdownItem key="0" href="#">Loading ...</DropdownItem>}
                 </DropdownMenu>
             </Dropdown>
