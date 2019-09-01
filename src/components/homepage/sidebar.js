@@ -90,13 +90,11 @@ class SidebarUsers extends React.Component {
     handleLogout = () => {
         localStorage.removeItem('token')
         localStorage.setItem('halaman', 1)
-        // window.location.href = '/Login'
     }
 
     render() {
         const data = this.props.users && this.props.users.userList
         const tokens = localStorage.getItem('token')
-        console.log('bangsat', data.length);
 
         const token = localStorage.getItem('token')
         const { genreList } = this.state
@@ -107,7 +105,7 @@ class SidebarUsers extends React.Component {
 
                 <h6 className="explore">Explore</h6>
                 <h6 className="history">History</h6>
-                <h6 className="addBook">
+                {data.level == 'admin' ? <h6 className="addBook">
                     <Button onClick={this.toggle} style={{ backgroundColor: 'transparent', border: 'none' }}><p style={{ color: "#000000", fontWeight: "bold" }}>*Add Books</p>{this.props.buttonLabel}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} style={{ maxWidth: '60%' }}>
                         <ModalHeader toggle={this.toggle} style={{ fontSize: '22px', borderBottom: 'none', padding: '25px' }}>Add Data</ModalHeader>
@@ -169,8 +167,9 @@ class SidebarUsers extends React.Component {
                         </ModalBody>
 
                     </Modal>
-                </h6>
-                {token != null ? (<Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Logout</h6></Link>) : (
+                </h6> : ''}
+
+                {token != null ? (<Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }} style={{ color: "#000000", textDecoration: "none" }}>Logout</h6></Link>) : (
                     <Link to={'/Login'}> <h6 className="logout" onClick={() => this.handleLogout()} style={{ cursor: 'pointer' }}>Login</h6></Link>)}
             </div>)
     }

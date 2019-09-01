@@ -24,7 +24,6 @@ export default class DropdownCategory extends React.Component {
     componentDidMount = () => {
         axios.get('http://localhost:8081/genre/cat')
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     genreList: res.data
                 })

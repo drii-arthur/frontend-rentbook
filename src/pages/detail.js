@@ -21,7 +21,7 @@ class Detail extends React.Component {
         super(props)
         this.state = {
             book: props.books.bookList.find((books) => { return books.id_books === Number(props.match.params.id) }),
-            user: {},
+            users: {},
             borrowedBy: 0,
         }
         this.handleDelete = this.handleDelete.bind(this)
@@ -51,11 +51,11 @@ class Detail extends React.Component {
             const borrowedBy = this.props.borrowing.borrowList[0] ? this.props.borrowing.borrowList[0].users_id : 0
             this.setState({
                 borrowedBy: borrowedBy
-            }, () => { console.log("minjem", borrowedBy, this.props.borrowing.borrowList[0]) })
+            })
         }
         await this.props.dispatch(profile())
         this.setState({
-            user: this.props.users.userList
+            users: this.props.users.userList
         })
     }
 
@@ -71,7 +71,7 @@ class Detail extends React.Component {
         const action = target.innerHTML
         const data = {
             id_book: this.state.book.id_books,
-            id_user: this.state.user.id
+            id_user: this.state.users.id
         }
         if (action === 'Borrow') {
             await this.props.dispatch(Borrow(data))
@@ -83,7 +83,7 @@ class Detail extends React.Component {
                     })
                 })
             this.setState({
-                borrowedBy: this.state.user.id,
+                borrowedBy: this.state.users.id,
                 book: {
                     ...this.state.book,
                     status: 0
@@ -122,8 +122,9 @@ class Detail extends React.Component {
 
     render() {
         const borrowedBy = this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].users_id
-        console.log("props borrow", this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].users_id);
-
+        const borrowedByName = this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].username
+        const dateTransaction = this.props.borrowing.borrowList[0] && this.props.borrowing.borrowList[0].date_transaction
+        const { users } = this.state
         const { book } = this.state
 
         if (book == undefined) {
@@ -151,9 +152,8 @@ class Detail extends React.Component {
                                     <Link to='/book'>
                                         <div className="btn-back"><img className="img-fluid" src={backIcon} /></div></Link>
                                 </div>
-                                <Link to={{ pathname: "/book" }}><div className="btn-delete" onClick={() => this.handleDelete()}><p>Delete</p></div></Link>
-                                <div className="btn-edit"><EditData id_books={this.props.match.params.id} /></div>
-
+                                {users.level == 'admin' ? <Link to={{ pathname: "/book" }}><div className="btn-delete" onClick={() => this.handleDelete()}><p>Delete</p></div></Link> : ''}
+                                {users.level == 'admin' ? <div className="btn-edit"><EditData id_books={this.props.match.params.id} /></div> : ''}
                             </div >
                         </div>
                     </div>
@@ -162,6 +162,10 @@ class Detail extends React.Component {
                             <div className='col-md-9'>
                                 <div className="conten">
                                     <div className="genre">{book.genre}</div>
+                                    {book.status == 0 ? <p className="borrowBy mt-4 mb-0" style={{ color: 'red' }}>Borrowed By: <span style={{ color: '#000000' }}>{borrowedByName}</span> </p> : ''}
+                                    {book.status == 0 ? <p className="borrowBy" style={{ color: 'red' }}>date transaction: <span style={{ color: '#000000' }}>{dateTransaction}</span> </p> : ''}
+
+
                                     <h1 className="title">{book.title}</h1>
                                     <h5 className="date">{book.date_released}</h5>
                                     <h4 className="status" style={this.state.book.status === 0 ? { color: "red" } : {}}>
@@ -172,7 +176,7 @@ class Detail extends React.Component {
                             </div>
                             <div className="col-md-3 text-right" style={{ lineHeight: '30' }}>
                                 {/* {book.status != 1 ? <button className='btn-rent'>Return</button> : <button className='btn-rent'>Borrow</button>} */}
-                                <button className="btn-rent" disabled={book.status !== 1 && this.state.user.id !== borrowedBy} onClick={this.handleBorrow}>{this.state.user.id == borrowedBy ? 'Return' : 'Borrow'}</button>
+                                <button className="btn-rent" disabled={book.status != 1 && this.state.users.id != borrowedBy} onClick={this.handleBorrow}>{this.state.users.id == borrowedBy && book.status == 0 ? 'Return' : 'Borrow'}</button>
                             </div>
                         </div>
                     </div>

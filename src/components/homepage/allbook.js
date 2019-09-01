@@ -36,7 +36,6 @@ class AllBooks extends React.Component {
         let page = params.get('page')
         let limit = params.get('limit')
         await this.props.dispatch(getBook(this.props.match.params.genre, this.props.match.params.year, search, page, limit))
-        console.log(this.props.books)
         this.setState({
             books: this.props.books.bookList,
         })
@@ -72,13 +71,9 @@ class AllBooks extends React.Component {
 
     render() {
         const halaman = localStorage.getItem('halaman')
-        console.log("halaman", localStorage.getItem('halaman'))
         const token = localStorage.getItem('token')
         const { books } = this.state
         const sum = Math.ceil(this.state.allBook / 8)
-        console.log(sum)
-
-
         return (
             <>
                 <Fragment>

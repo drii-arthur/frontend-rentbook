@@ -32,7 +32,7 @@ export default class HomePage extends React.Component {
 
 
     render() {
-        console.log(this.props)
+
         return (
             <Fragment>
                 <Sidebar style={{ width: "20%" }}
